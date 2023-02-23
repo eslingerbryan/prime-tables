@@ -5,7 +5,25 @@ services:
     build: ./primes-api
     ports:
       - '3030:3000'
+    profiles:
+      - app
+  api-test:
+    build:
+      context: ./primes-api
+      dockerfile: Dockerfile.test
+    profiles:
+      - test
   web:
     build: ./primes-web
     ports:
       - '3000:3000'
+    profiles:
+     - app
+    depends_on:
+      - api
+  web-test:
+    build: 
+      context: ./primes-web
+      dockerfile: Dockerfile.test
+    profiles: 
+      - test
