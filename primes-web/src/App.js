@@ -17,7 +17,7 @@ export default function PrimesTable() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    fetch(`${process.env.PRIMES_API_HOST}/prime_tables/${data.get('n')}`)
+    fetch(`${process.env.PRIMES_API_HOST || 'http://localhost:3030'}/prime_tables/${data.get('n')}`)
       .then((response) => response.json())
       .then((json) => setTableData(json.data));
 

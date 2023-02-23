@@ -5,3 +5,7 @@ services:
     build: ./primes-api
     ports:
       - '3030:3000'
+  web:
+    build: ./primes-web
+    ports:
+      - '3000:3000'
