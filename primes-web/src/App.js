@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -6,16 +7,19 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import MultiplicationTable from './MultiplicationTable';
 
 const theme = createTheme();
 
 export default function PrimesTable() {
+  const [tableData, setTableData] = useState(null);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    fetch(`http://localhost:3030/prime_tables/${data.get('n')}`)
+    fetch(`${process.env.PRIMES_API_HOST}/prime_tables/${data.get('n')}`)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((json) => setTableData(json.data));
 
   };
 
@@ -32,7 +36,7 @@ export default function PrimesTable() {
           }}
         >
           <Typography component="h1" variant="h5">
-            Primes Multiplcation Table
+            Primes Multiplication Table
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -52,6 +56,7 @@ export default function PrimesTable() {
             >
               Generate
             </Button>
+            {tableData && <MultiplicationTable data={tableData} />}
           </Box>
         </Box>
       </Container>
