@@ -7,4 +7,8 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
 
   # Add more helper methods to be used by all tests here...
+  def max_time
+    # TODO proper config value
+    30
+  end
 end

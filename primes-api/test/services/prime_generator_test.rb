@@ -1,4 +1,5 @@
 require "test_helper"
+require "timeout"
 
 class PrimeGeneratorTest < ActiveSupport::TestCase
   setup do
@@ -16,5 +17,10 @@ class PrimeGeneratorTest < ActiveSupport::TestCase
     actual =  @prime_generator.up_to 13
     assert_equal expected, actual
   end
-  
+
+  def test_generates_large_primes
+    Timeout::timeout(max_time) { @prime_generator.up_to 100_000_000}
+  rescue Timeout::Error
+    assert false, message { "Prime generation exceeded max time of #{max_time} sec" }
+  end
 end

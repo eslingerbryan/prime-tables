@@ -1,13 +1,14 @@
 class PrimeGenerator
 	def up_to(n)
 		primes = (2..n).to_a
-		factor = 2
 		
-		while factor ** 2  <= n do
-			primes = primes.delete_if { |i| i > factor and i % factor == 0 }
-			factor += 1
+		primes.each do |i|
+			next if i.nil?
+
+			break if i * i > n
+			(i * i).step(n, i) { |j| primes[j - 2] = nil }
 		end
 
-		primes
+		primes.compact
 	end
 end
