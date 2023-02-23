@@ -1,5 +1,5 @@
 require "test_helper"
-require "timeout"
+
 
 class PrimeGeneratorTest < ActiveSupport::TestCase
   setup do
