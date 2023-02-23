@@ -11,4 +11,10 @@ class ActiveSupport::TestCase
     # TODO proper config value
     30
   end
+
+  def with_timeout(context, &blk)
+    Timeout::timeout(max_time, &blk)
+  rescue Timeout::Error
+    assert false, message { "#{context} exceeded max time of #{max_time} sec" }
+  end
 end

@@ -15,11 +15,9 @@ class PrimeGeneratorTest < ActiveSupport::TestCase
   end
 
   def test_generate_large_primes
-    Timeout::timeout(max_time) do 
+    with_timeout("Prime generation") do
       assert_equal 15_485_863, @prime_generator.generate(1_000_000).last
     end
-  rescue Timeout::Error
-    assert false, message { "Prime generation exceeded max time of #{max_time} sec" }
   end
 
   def test_sieve
@@ -35,8 +33,6 @@ class PrimeGeneratorTest < ActiveSupport::TestCase
   end
 
   def test_sieve_large_primes
-    Timeout::timeout(max_time) { @prime_generator.up_to 100_000_000}
-  rescue Timeout::Error
-    assert false, message { "Prime generation exceeded max time of #{max_time} sec" }
+    with_timeout("Prime generation") { @prime_generator.up_to 100_000_000}
   end
 end
