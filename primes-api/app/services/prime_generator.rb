@@ -1,4 +1,11 @@
 class PrimeGenerator
+	def generate(n)
+		return [2, 3, 5, 7, 11].take n if n <= 5
+
+		estimate = n * Math.log(n) + n * Math.log(Math.log(n))
+		return up_to(estimate).take(n)
+	end
+
 	def up_to(n)
 		primes = (2..n).to_a
 		
